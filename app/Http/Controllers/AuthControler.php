@@ -41,9 +41,9 @@ class AuthControler extends Controller
     {
         $user = $this->userService->getAuthentificatedUser();
 
-        if($user){
+        if ($user) {
             return view("layouts.light-sidebar", compact("user"));
-        }else{
+        } else {
             redirect()->back();
         }
     }
@@ -61,4 +61,3 @@ class AuthControler extends Controller
         }
     }
 }
-

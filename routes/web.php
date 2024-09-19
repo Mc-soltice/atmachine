@@ -16,7 +16,6 @@ Route::get('/sing-in', [AuthControler::class, 'signIn'])->name('sign');
 Route::get('/register', [AuthControler::class, 'register'])->name('register');
 Route::post('/sign-up', [AuthControler::class, 'createUserAccount'])->name('create.user.account');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+Route::group(['prefix' => 'admin', 'middleware' => 'auth','ThrottleRequests'], function(){
     Route::get('/dashboard', [AuthControler::class, 'dashboard'])->name('dashboard');
 });
-

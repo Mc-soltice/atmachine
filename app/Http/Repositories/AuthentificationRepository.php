@@ -22,6 +22,7 @@ class AuthentificationRepository
     {
         return $this->model->create($data);
     }
+
     public function loginAdminUser(array $data)
     {
         // Tenter de connecter l'utilisateur avec les informations fournies
@@ -29,35 +30,24 @@ class AuthentificationRepository
             // Si la tentative de connexion est réussie, retourner l'utilisateur authentifié
             return Auth::user();
         }
-
         // Si l'authentification échoue, retournez un message ou gérez l'erreur
         return null;
     }
     
-    public function getAll()
-    {
-        return User::all();
-    }
 
     public function find($id)
     {
         return User::findOrFail($id);
     }
 
-    public function create(array $data)
-    {
-
-        return User::create($data);
-    }
-
-    public function update($id, array $data)
+    public function updateUser($id, array $data)
     {
         $user = User::findOrFail($id);
         $user->update($data);
         return $user;
     }
 
-    public function delete($id)
+    public function deleteUser($id)
     {
         $user = User::findOrFail($id);
         $user->delete();

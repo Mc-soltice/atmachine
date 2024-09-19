@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Http\Service;
 
-use App\Http\Repositories\AuthentificationRepository;
-use App\Http\Repositories\UserRepository;
 use App\Models\User;
+use App\Http\Resources\UserResource;
+use App\Http\Repositories\UserRepository;
+use App\Http\Repositories\AuthentificationRepository;
 
 class UserService
 {
@@ -17,36 +19,39 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    public function getAuthentificatedUser(){
+    public function getAuthentificatedUser()
+    {
         return $this->userRepository->getAuthentificatedUser();
     }
 
- 
-    
+    public function getAllUsers()
+    {
+        return $this->userRepository->getAllUsers();
+    }
 
+    public function UpdateUser($request, $id,)
+    {
+        $data = [];
+        $data["first_name"] = $request->first_name;
+        $data["last_name"] = $request->last_name;
 
-    // public function getAllUsers()
-    // {
-    //     return $this->authentificationRepository->getAll();
-    // }
+        $user = $this->userRepository->findByEmail($request->email);
 
-    // public function createUser(array $data)
-    // {
-    //     return $this->authentificationRepository->create($data);
-    // }
+        if (!$user) {
+            $data["email"] = $request->email;
+        }
 
-    // public function getUserById($id)
-    // {
-    //     return $this->authentificationRepository->find($id);
-    // }
+        return $this->userRepository->UpdateUser($id, $data);
+    }
+    public function deleteUser($id)
+    {
+        return $this->userRepository->delete($id);
+        
+    }
 
-    // public function updateUser($id, array $data)
-    // {
-    //     return $this->authentificationRepository->update($id, $data);
-    // }
-
-    // public function deleteUser($id)
-    // {
-    //     return $this->authentificationRepository->delete($id);
-    // }
-}   
+    public function findUser($email)
+    {
+        $user = $this->userRepository->findByEmail($email);
+        return $user;
+    }
+}

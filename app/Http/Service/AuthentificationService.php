@@ -17,12 +17,14 @@ class AuthentificationService
     public function register($request){
         $data = [];
         $data["email"] = $request->email;
-        $data["first_name"] = $request->first_name;
         $data["password"] = $request->password;
         $data["last_name"] = $request->last_name;
+        $data["first_name"] = $request->first_name;
         $user = $this->authentificationRepository->register($data);
         return $user;
     }
+
+    
     public function loginAdminUser($request)
     {
         // Récupérer les données d'authentification

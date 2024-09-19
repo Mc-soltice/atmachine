@@ -21,7 +21,7 @@ class AuthentificationMiddleware
             // Si l'utilisateur n'est pas connecté, on redirige vers la page de login
             return redirect()->route('sign')->withErrors(['auth' => 'Vous devez être connecté pour accéder à cette page.']);
         }
-        
+
         return $next($request);
     }
 }
