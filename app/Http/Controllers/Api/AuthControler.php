@@ -6,10 +6,10 @@ use App\Models\User;
 use App\Http\Service\UserService;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\FindUserResource;
 use App\Http\Service\AuthentificationService;
 use App\Http\Requests\Api\RegisterAuthRequest;
 use App\Http\Requests\LoginAuthentificationRequest;
-use App\Http\Requests\RegisterAuthentificationRequest;
 
 class AuthControler extends Controller
 {
@@ -25,6 +25,7 @@ class AuthControler extends Controller
 
     public function createUserAccount(RegisterAuthRequest $request)
     {
+
         $user = $this->authentificationService->register($request);
 
         return new UserResource($user);
@@ -37,7 +38,7 @@ class AuthControler extends Controller
 
     public function findUser($id)
     {
-        return new UserResource(User::findOrFail($id));
+        return new FindUserResource(User::findOrFail($id));
     }
 
     public function UpdateUser(RegisterAuthRequest $request, $id)
@@ -55,11 +56,9 @@ class AuthControler extends Controller
     {
         $user = $this->authentificationService->loginAdminUser($request);
         if ($user) {
-            // Si l'authentification réussit, on renvoi un message de suces dans le json
-            return response()->json(['succes' => 'Connexion réussie']);
+            return new UserResource($user);
         } else {
-            // Si l'authentification échoue, on renvoie une erreur dans le json
-            return response()->json(['login' => 'Identifiants incorrects']);
+            return false;
         }
     }
 }

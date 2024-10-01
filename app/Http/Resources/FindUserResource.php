@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\BankAccount;
 use App\Models\Users;
 
-class UserResource extends JsonResource
+class FindUserResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -25,7 +25,8 @@ class UserResource extends JsonResource
             'last_name' => $this->last_name,
             'email' => $this->email,
             'created_at' => $this->created_at,
-
+            'account' => $this->bankAccount->bank_account_id,
+            'balance' => $this->bankAccount->balance,
         ];
     
     }

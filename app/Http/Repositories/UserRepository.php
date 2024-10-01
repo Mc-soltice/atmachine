@@ -3,9 +3,6 @@
 namespace App\Http\Repositories;
 
 use App\Models\User;
-use App\Http\Requests;
-use App\Http\Requests\AuthRequest;
-use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 
 class UserRepository
@@ -22,13 +19,10 @@ class UserRepository
         return Auth::user();
     }
 
-    public function create(array $data)
-    {
-        return User::create($data);
-    }
 
-    public function getAllUsers(){
-        return User::orderBy('id', 'desc')->get();
+    public function getAllUsers()
+    {
+        return User::with('bankAccount')->orderBy('id', 'desc')->get();
     }
     
     public function findById($id){
@@ -59,24 +53,3 @@ class UserRepository
         }
     }
 }
-// public function delete($id)
-// {
-//     try {
-//         // Rechercher l'utilisateur par ID
-//         $user = $this->findById($id);
-        
-//         // Vérifier si l'utilisateur existe
-//         if (!$user) {
-//             return "Utilisateur avec l'ID $id non trouvé.";
-//         }
-
-//         // Tenter de supprimer l'utilisateur
-//         $user->delete();
-        
-//         // Retourner un message de succès
-//         return "Utilisateur avec l'ID $id a été supprimé avec succès.";
-//     } catch (\Exception $e) {
-//         // Gérer les exceptions et retourner un message d'erreur
-//         return "Une erreur est survenue lors de la suppression de l'utilisateur : " . $e->getMessage();
-//     }
-// }

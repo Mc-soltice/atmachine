@@ -3,6 +3,8 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\Api\AuthControler;
+    use App\Http\Controllers\Api\AccountsController;
+    use App\Http\Controllers\Api\TransactionController;
 
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -18,8 +20,13 @@
     Route::delete('/users/{id}', [AuthControler::class, 'deleteUser']);
     Route::post('/sign-up', [AuthControler::class, 'createUserAccount']);
     
-    Route::post('/connection', [AuthControler::class, 'login'])->middleware('throttle.requests');
-
-    // Route::group(['prefix' => 'admin', 'middleware' =>'ThrottleRequests'], function()
-    // {
-    // });
+    
+    
+    Route::group(['middleware' => 'auth'], function(){
+        Route::post('/connection', [AuthControler::class, 'login']);
+        Route::post('/cash-in', [TransactionController::class, 'deposit']);
+        Route::post('/cash-out', [TransactionController::class, 'withdraw']);
+        Route::get('/accounts', [AccountsController::class, 'getAccounts']);
+    });
+    
+    

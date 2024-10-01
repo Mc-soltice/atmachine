@@ -7,7 +7,6 @@ use App\Http\Requests;
 use App\Http\Requests\AuthRequest;
 use Illuminate\Support\Facades\Auth;
 
-// use Illuminate\Http\Requests;
 
 class AuthentificationRepository
 {
@@ -20,7 +19,7 @@ class AuthentificationRepository
 
     public function register(array $data)
     {
-        return $this->model->create($data);
+        return $this->model->create($data);    
     }
 
     public function loginAdminUser(array $data)
