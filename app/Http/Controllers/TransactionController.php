@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Service\TransactionService;
@@ -24,16 +24,8 @@ class TransactionController extends Controller
         $user = User::findOrFail($userId);
 
         $bankAccountId = $user->bankAccount->id;
-        
-        $status = $this->transactionService->processTransaction($bankAccountId, $data['amount'], $data['type']);
 
-        return  new TransactionResource($status);
-
-    }
-    public function getAllTransactions()
-    {
-        $transaction= $this->transactionService->getAllTransactions();
-        return TransactionResource::collection($transaction);
+        return  TransactionResource::collection($this->transactionService->processTransaction($bankAccountId, $data['amount'], $data['type']));
     }
 
 }

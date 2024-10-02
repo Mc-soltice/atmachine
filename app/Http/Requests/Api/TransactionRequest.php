@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -15,7 +15,8 @@ class TransactionRequest extends FormRequest
     {
         return [
             'amount' => 'required|numeric|min:0.01',
-            'type' => 'required|string|max:10',
+            'type' => 'required|in:deposit,withdraw',
         ];
     }
+    
 }

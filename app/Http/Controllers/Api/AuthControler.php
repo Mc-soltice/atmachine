@@ -49,7 +49,7 @@ class AuthControler extends Controller
 
     public function DeleteUser($id)
     {
-        $user = $this->userService->deleteUser($id);
+        return $this->userService->deleteUser($id);
     }
 
     public function login(LoginAuthentificationRequest $request)

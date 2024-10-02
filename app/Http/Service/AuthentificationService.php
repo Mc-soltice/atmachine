@@ -28,12 +28,12 @@ class AuthentificationService
         $user = $this->authentificationRepository->register($data);
 
         // Générer un identifiant de compte bancaire unique (8 chiffres)
-        $bankAccountId = str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);        
+        $id = str_pad(rand(0, 99999999), 8, '0', STR_PAD_LEFT);        
         // Créer le compte bancaire associé
         $account = new BankAccount();
         $account->user_id = $user->id;
         $account->balance = 0; // solde initial
-        $account->bank_account_id = $bankAccountId; // Assigner l'identifiant
+        $account->id = $id; // Assigner l'identifiant
         $this->bankAccountRepository->save($account);
         return $user;
     }

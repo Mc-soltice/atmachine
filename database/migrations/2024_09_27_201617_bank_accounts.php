@@ -14,13 +14,10 @@ return new class extends Migration
 
          Schema::create('bank_accounts', function (Blueprint $table) {
              $table->id();
-             $table->string('bank_account_id', 8)->unique();
              $table->decimal('balance', 10, 2)->default(0);
              $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
              $table->timestamps();
             });
-            // Schema::create('users', function (Blueprint $table) {
-            // });
     }
 
     /**

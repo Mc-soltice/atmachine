@@ -11,7 +11,6 @@ class BankAccount extends Model
     use HasFactory;
     protected $fillable = 
     [
-        'bank_account_id',
         'user_id',
         'balance'
     ];

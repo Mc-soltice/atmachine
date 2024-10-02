@@ -14,16 +14,14 @@ class Transaction extends Model
         'bank_account_id', 
         'type', 
         'amount', 
-        'target_account_id'
     ];
 
     public function bankAccount()
     {
         return $this->belongsTo(BankAccount::class);
     }
-
-    public function targetAccount()
+    public function user()
     {
-        return $this->belongsTo(BankAccount::class, 'target_account_id');
+        return $this->belongsTo(user::class);
     }
 }

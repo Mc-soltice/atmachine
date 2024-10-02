@@ -1,44 +1,25 @@
 <?php
 namespace App\Http\Repositories;
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use App\Models\BankAccount;
+
 use App\Models\Transaction;
 class TransactionRepository 
 {
 protected $model;
 
-public function __construct(Transaction $transaction,BankAccount $bankAccount)
+public function __construct(Transaction $transaction)
 {
     $this->model = $transaction;
-    $this->model = $bankAccount;
 }
   
-    public function deposit(BankAccount $account, float $amount)
+
+    public function create(array $data)
     {
-        $account->balance += $amount;
-        $account->save();
-        
-        return transaction::create([
-            'bank_account_id' => $account->id,
-            'type' => 'deposit',
-            'amount' => $amount
-        ]);
+        return Transaction::create($data);
     }
-    
-    public function withdraw(BankAccount $account, float $amount)
-    {
-        if ($account->balance < $amount) {
-            throw new \Exception("Fonds insuffisants");
-        }
-        
-        $account->balance -= $amount;
-        $account->save();
-        
-        return transaction::create([
-            'bank_account_id' => $account->id,
-            'type' => 'withdrawal',
-            'amount' => $amount
-        ]);
+    public function getAllTransactions(){
+        // return Transaction::all();
+        return Transaction::with(relations: 'user')->orderBy('id', 'desc')->get();
+
     }
+
 }
