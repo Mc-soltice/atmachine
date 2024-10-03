@@ -33,7 +33,14 @@ class TransactionController extends Controller
     public function getAllTransactions()
     {
         $transaction= $this->transactionService->getAllTransactions();
+
         return TransactionResource::collection($transaction);
+    }
+    public function transferFunds (TransactionRequest $request,$userId){
+
+        $data = $request->validated();
+
+        return $this->transactionService->transferFunds($userId,$data['to_account_id'],$data['amount'], );
     }
 
 }

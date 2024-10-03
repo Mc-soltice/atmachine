@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('bank_account_id');
             $table->decimal('amount', 10, 2);
-            $table->enum('type', ['deposit', 'withdrawal']);
+            $table->enum('type', ['deposit', 'withdraw','transfer']);
             $table->timestamps();
             $table->foreign('bank_account_id')->references('id')->on('bank_accounts')->onDelete('cascade');
         });
