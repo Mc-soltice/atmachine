@@ -19,7 +19,8 @@ class TransactionService
         $bankAccount = BankAccount::findOrFail($bankAccountId);
 
         if ($transactionType === 'withdraw' && $bankAccount->balance < $amount) {
-            throw new \Exception('Insufficient funds.');
+
+            return response()->json('Insufficient funds for transfer.');
         }
         $transactionData = [
             'amount' => $amount,
@@ -73,6 +74,14 @@ class TransactionService
         
         $toBankAccount->balance += $amount;
         $toBankAccount->save();
+
+    return (object) [
+        'from_account_id' => $fromBankAccountId,
+        'from_account_balance' => $fromBankAccount->balance,
+        'to_account_id' => $toBankAccountId,
+        'to_account_balance' => $toBankAccount->balance,
+        'amount' => $amount,
+    ];
     }
     
 }

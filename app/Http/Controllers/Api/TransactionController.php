@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Service\TransactionService;
 use App\Http\Requests\TransactionRequest;
 use App\Http\Resources\TransactionResource;
+use App\Http\Resources\TransferResource;
 use App\Models\User;
 
 class TransactionController extends Controller
@@ -39,8 +40,10 @@ class TransactionController extends Controller
     public function transferFunds (TransactionRequest $request,$userId){
 
         $data = $request->validated();
+            
+        $status = $this->transactionService->transferFunds($userId,$data['to_account_id'],$data['amount'], );
 
-        return $this->transactionService->transferFunds($userId,$data['to_account_id'],$data['amount'], );
+        return  new TransferResource($status);
+
     }
-
 }
