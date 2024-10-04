@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthControler;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AccountsController;
+use App\Http\Controllers\Api\TransactionController;
 
 Route::get('/', function () {
     return view('authentication/sign-in/basic');
@@ -18,4 +20,11 @@ Route::post('/sign-up', [AuthControler::class, 'createUserAccount'])->name('crea
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth','ThrottleRequests'], function(){
     Route::get('/dashboard', [AuthControler::class, 'dashboard'])->name('dashboard');
+
+
+
+
+    Route::post('/accounts/{accountId}/deposit', [TransactionController::class, 'deposit']);
+    Route::post('/accounts/{accountId}/withdraw', [TransactionController::class, 'withdraw']);
+    Route::get('/accounts', [AccountsController::class, 'getAccounts']);
 });

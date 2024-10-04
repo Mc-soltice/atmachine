@@ -2,8 +2,7 @@
 
 namespace App\Http\Service;
 
-use App\Models\User;
-use App\Http\Resources\UserResource;
+
 use App\Http\Repositories\UserRepository;
 use App\Http\Repositories\AuthentificationRepository;
 

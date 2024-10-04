@@ -13,7 +13,8 @@ class ThrottleRequests
 
     public function handle(Request $request, Closure $next)
     {
-        $userId = $request->user() ? $request->user()->id : 'guest';
+        $userId = $request->user()->id;
+        // $userId = $request->user() ? $request->user()->id : 'guest';
 
         // Clés de cache
         $blockedKey = "blocked_{$userId}";
