@@ -21,21 +21,19 @@ public function __construct(Transaction $transaction)
 
     }
         // Sa c'est la éthode pour enregistrer le transfert
-        public function createTransferTransaction($fromAccountId, $toAccountId, $amount)
-        {
-            // Enregistre la transaction de retrait
-            $this->model->create([
-                'bank_account_id' => $fromAccountId,
-                'amount' => $amount,
-                'type' => 'withdraw',
-            ]);
-    
-            // Enregistre la transaction de dépôt
-            $this->model->create([
-                'bank_account_id' => $toAccountId,
-                'amount' => $amount,
-                'type' => 'deposit',
-            ]);
-        }
+      public function createTransferTransaction($fromAccountId, $toAccountId, $amount)
+    {
+        $this->proceedToTransferTransaction($fromAccountId, $amount, "withdraw");
+        $this->proceedToTransferTransaction($toAccountId, $amount, "deposit");
+    }
+    private function proceedToTransferTransaction($accountId, $amount, $type)
+    {
+        $this->model->create([
+            'bank_account_id' => $accountId,
+            'amount' => $amount,
+            'type' => $type,
+        ]);
+        
+    }
 
 }
